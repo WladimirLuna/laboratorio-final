@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Set environment variables
-        run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITGUB_ENV
+        run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
       
       - name: Validate and Configure build.gradle
         env:
