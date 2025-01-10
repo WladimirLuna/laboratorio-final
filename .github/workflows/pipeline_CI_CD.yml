@@ -6,14 +6,6 @@ on:
 
 jobs:
 
-  BUILD:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        run: |
-          chmod 777 gradlew
-          ./gradlew build
-
   SAST:
     runs-on: ubuntu-24.04
     steps:
