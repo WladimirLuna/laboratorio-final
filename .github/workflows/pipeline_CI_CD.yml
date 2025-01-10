@@ -11,14 +11,43 @@ jobs:
     steps:
       - name: Build
         run: |
-          echo "Compilación"
+          chmod 777 gradlew
+          ./gradlew build
 
-  TEST:
-    runs-on: ubuntu-latest
+  SAST:
+    runs-on: ubuntu-24.04
     steps:
-      - name: Test
+      - name: Checkout Code
+        uses: action/checkout@v3
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Set environment variables
+        run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITGUB_ENV
+      
+      - name: Validate and Configure build.gradle
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
         run: |
-          echo "Pruebas"
+          if [ -f "build.gradle" ]; then
+            echo "Encontró Archivo"
+            echo "Verificando configuración"
+            if ! grep -q 'id "org.sonarqube" version "3.3"' build.gradle; then
+              echo "No se encuentra Plugin configurado"
+              sed -i '/id '\''java'\''/a \ \ \ \ id '\''org.sonarqube'\'' version '\''3.3'\''' build.gradle
+              echo "plugin de SonarCloud agregado a build.gradle"
+              cat build.gradle
+            else
+              echo "plugin ya estaba configurado en build.gradle"
+            fi
+          else
+            echo "No se encontró el archivo"
+            exit 1
+          fi
 
   DEPLOY:
     runs-on: ubuntu-latest
