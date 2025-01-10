@@ -1,0 +1,14 @@
+name: lab-final
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  SCRIPT:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: |
+          echo "Hola Mundo"
+        
