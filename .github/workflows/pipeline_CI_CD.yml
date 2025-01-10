@@ -2,13 +2,30 @@ name: lab-final
 on:
   push:
     branches:
-      - main
+      - feature-lab-final
 
 jobs:
-  SCRIPT:
+
+  BUILD:
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1
+      - name: Build
         run: |
-          echo "Hola Mundo"
+          echo "Compilación"
+
+  TEST:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          echo "Pruebas"
+
+  DEPLOY:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          echo "Despliegue"
+
+    
         
