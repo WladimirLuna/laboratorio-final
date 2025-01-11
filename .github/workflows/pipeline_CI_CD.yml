@@ -42,6 +42,12 @@ jobs:
           sudo mv sonar-scanner-4.7.0.2747-linux /usr/local/sonar-scanner
           sudo ln -s /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
 
+      # Configurar el entorno para SonarScanner
+      - name: Configurar Java para SonarScanner
+        run: |
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-temurin" >> $GITHUB_ENV
+          echo "/usr/lib/jvm/java-17-temurin/bin" >> $GITHUB_PATH
+
       # Configurar SonarCloud
       - name: Configurar SonarCloud
         env:
