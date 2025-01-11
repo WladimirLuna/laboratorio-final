@@ -26,3 +26,31 @@ jobs:
       # Construir el proyecto
       - name: Construir el proyecto
         run: npm run build
+      
+      # Configurar SonarCloud
+      - name: Configurar SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${{ github.repository }} \
+            -Dsonar.organization=wladimirluna \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.projectName=${{ github.repository }} \
+            -Dsonar.sources=. \
+            -Dsonar.language=js \
+            -Dsonar.sourceEncoding=UTF-8 \
+            || echo "Skipping SonarCloud analysis: possible project setup issue"
+
+      # Analizar el código con SonarCloud
+      - name: Analizar código en SonarCloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=${{ github.repository }} \
+            -Dsonar.organization=wladimirluna \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
