@@ -33,6 +33,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      # Validar versión de Java
+      - name: Validar versión de Java
+        run: java -version
       
       # Instalar SonarScanner
       - name: Instalar SonarScanner
@@ -48,26 +52,15 @@ jobs:
           echo "JAVA_HOME=/usr/lib/jvm/java-17-temurin" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-temurin/bin" >> $GITHUB_PATH
 
-      # Configurar SonarCloud
-      - name: Configurar SonarCloud
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=${{ github.repository }} \
-            -Dsonar.organization=wladimirluna \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.projectName=${{ github.repository }} \
-            -Dsonar.sources=. \
-            -Dsonar.language=js \
-            -Dsonar.sourceEncoding=UTF-8 \
-            || echo "Skipping SonarCloud analysis: possible project setup issue"
+      # Validar instalación de SonarScanner
+      - name: Validar instalación de SonarScanner
+        run: sonar-scanner --version
 
       # Analizar el código con SonarCloud
       - name: Analizar código en SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_HOME: /usr/lib/jvm/java-17-temurin
         run: |
           sonar-scanner \
             -Dsonar.projectKey=${{ github.repository }} \
