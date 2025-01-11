@@ -52,12 +52,14 @@ jobs:
         run: |
           echo "JAVA_HOME=/usr/lib/jvm/java-17-temurin" >> $GITHUB_ENV
           echo "/usr/lib/jvm/java-17-temurin/bin" >> $GITHUB_PATH
-        env:
-          JAVA_HOME: /usr/lib/jvm/java-17-temurin
+          echo "Entorno configurado correctamente"
 
       # Validar instalación de SonarScanner
       - name: Validar instalación de SonarScanner
-        run: sonar-scanner --version
+        run: |
+          echo "Validando SonarScanner en PATH"
+          which sonar-scanner
+          sonar-scanner --version
 
       # Analizar el código con SonarCloud
       - name: Analizar código en SonarCloud
