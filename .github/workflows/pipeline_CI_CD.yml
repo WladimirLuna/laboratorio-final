@@ -26,6 +26,13 @@ jobs:
       # Construir el proyecto
       - name: Construir el proyecto
         run: npm run build
+
+      # Instalar Java 17
+      - name: Instalar Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
       
       # Instalar SonarScanner
       - name: Instalar SonarScanner
