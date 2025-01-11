@@ -61,6 +61,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           JAVA_HOME: /usr/lib/jvm/java-17-temurin
+          PATH: /usr/lib/jvm/java-17-temurin/bin:$PATH
         run: |
           sonar-scanner \
             -Dsonar.projectKey=${{ github.repository }} \
