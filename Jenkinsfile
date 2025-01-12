@@ -72,7 +72,7 @@ pipeline {
 
         stage('Analizar Imagen Docker') {
             steps {
-                bat 'C:/Tools/trivy/trivy.exe image --scanners vuln laboratorio-final-app:latest'
+                bat 'C:/Tools/trivy/trivy.exe image --format json --scanners vuln laboratorio-final-app:latest'
             }
         }
 
