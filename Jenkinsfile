@@ -70,11 +70,11 @@ pipeline {
             }
         }
 
-        // stage('Analizar Imagen Docker') {
-        //     steps {
-        //         bat 'C:/Users/InTheMix/Documents/Diplomado/DevSecOps/trivy/trivy.exe image --scanners vuln laboratorio-final-app:latest'
-        //     }
-        // }
+        stage('Analizar Imagen Docker') {
+            steps {
+                bat 'C:/Tools/trivy/trivy.exe image --scanners vuln laboratorio-final-app:latest'
+            }
+        }
     }
 
     post {
