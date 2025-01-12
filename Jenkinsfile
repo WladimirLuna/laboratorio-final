@@ -75,6 +75,12 @@ pipeline {
                 bat 'C:/Tools/trivy/trivy.exe image --scanners vuln laboratorio-final-app:latest'
             }
         }
+
+        stage('Deploy app') {
+            steps {
+                bat 'docker run -d -p 3000:3000 --name laboratorio-final-app laboratorio-final-app:latest'
+            }
+        }
     }
 
     post {
