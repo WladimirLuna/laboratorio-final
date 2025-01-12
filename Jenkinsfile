@@ -56,6 +56,14 @@ pipeline {
         //     }
         // }
 
+        stage('Dependency-Check Analysis') {
+            steps {
+                script {
+                    bat 'C:/Tools/dependency-check/bin/dependency-check.bat --disableNodeAudit --disableYarnAudit --project "laboratorio-final" --scan "C:/Users/InTheMix/Documents/Diplomado/DevSecOps/laboratorio-final" --out "C:/Users/InTheMix/Documents/Diplomado/DevSecOps" --format ALL --data "C:/Tools/dependency-check/data"'
+                }
+            }
+        }
+
         stage('Construir Imagen Docker') {
             steps {
                 bat 'docker build -t %DOCKER_IMAGE%:%DOCKER_TAG% .'
