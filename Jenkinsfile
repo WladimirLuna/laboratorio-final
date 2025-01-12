@@ -32,29 +32,29 @@ pipeline {
             }
         }
 
-        // stage('Run Tests and Generate Coverage') {
-        //     steps {
-        //         script {
-        //             bat 'docker run --rm -v "%cd%":/app -w /app node:14 npm run test'
-        //         }
-        //     }
-        // }
+        stage('Run Tests and Generate Coverage') {
+            steps {
+                script {
+                    bat 'docker run --rm -v "%cd%":/app -w /app node:14 npm run test'
+                }
+            }
+        }
 
-        //  stage('SonarQube Analysis') {
-        //     steps {
-        //         script {
-        //             bat '''
-        //             docker run --rm -v "%cd%":/app -w /app sonarsource/sonar-scanner-cli ^
-        //                 -Dsonar.projectKey=%SONAR_PROJECT_KEY% ^
-        //                 -Dsonar.organization=%SONAR_ORGANIZATION% ^
-        //                 -Dsonar.host.url=%SONARQUBE_URL% ^
-        //                 -Dsonar.login=%SONAR_TOKEN% ^
-        //                 -Dsonar.exclusions=node_modules/** ^
-        //                 -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-        //             '''
-        //         }
-        //     }
-        // }
+         stage('SonarQube Analysis') {
+            steps {
+                script {
+                    bat '''
+                    docker run --rm -v "%cd%":/app -w /app sonarsource/sonar-scanner-cli ^
+                        -Dsonar.projectKey=%SONAR_PROJECT_KEY% ^
+                        -Dsonar.organization=%SONAR_ORGANIZATION% ^
+                        -Dsonar.host.url=%SONARQUBE_URL% ^
+                        -Dsonar.login=%SONAR_TOKEN% ^
+                        -Dsonar.exclusions=node_modules/** ^
+                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                    '''
+                }
+            }
+        }
 
         stage('Dependency-Check Analysis') {
             steps {
